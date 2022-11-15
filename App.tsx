@@ -1,22 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+import useCachedResources from './src/hooks/useCachedResources';
+import useColorScheme from './src/hooks/useColorScheme';
+import Navigation from './src/navigation';
 
-export default function App() {
+const App = () => {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
   if (!isLoadingComplete) {
     return null;
-  } else {
-    return (
+  }
+  return (
+    <PaperProvider>
       <SafeAreaProvider>
         <Navigation colorScheme={colorScheme} />
         <StatusBar />
       </SafeAreaProvider>
-    );
-  }
-}
+    </PaperProvider>
+  );
+};
+
+export default App;
