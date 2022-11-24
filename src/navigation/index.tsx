@@ -9,11 +9,10 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import { RootStackParamList, RootTabParamList } from '../../types';
-import AllServices from '../screens/AllServices';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { routesList } from '../routes/routesDictionary';
 import ServiceDetails from '../components/ServiceDetails';
-import CreateService from "../components/CreateService";
+import CreateService from '../components/CreateService';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -37,6 +36,12 @@ const BottomTabNavigator = () => {
             // @ts-ignore
             // eslint-disable-next-line react/no-unstable-nested-components
             tabBarIcon: (props) => <FontAwesome {...props} name={_.icon} />,
+            headerStyle: {
+              backgroundColor: '#002B49',
+            },
+            headerTitleStyle: {
+              color: 'white',
+            },
           }}
         />
       ))}

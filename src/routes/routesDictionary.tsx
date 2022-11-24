@@ -6,7 +6,7 @@ export const routesList:{ key: string, title: string, name: any,
   component: any, icon: string }[] = [
     {
       key: 'AllServices',
-      title: 'Servicios',
+      title: 'Lista de servicios',
       name: 'AllServices',
       component: AllServices,
       icon: 'list',
@@ -20,7 +20,7 @@ export const routesList:{ key: string, title: string, name: any,
     },
     {
       key: 'Map',
-      title: 'Mapa',
+      title: 'Mapa de servicios',
       name: 'Map',
       component: Map,
       icon: 'map-marker',
