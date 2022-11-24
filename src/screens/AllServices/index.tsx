@@ -1,11 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { FlatList, View } from 'react-native';
+import { List, Text } from 'react-native-paper';
 import { RootTabScreenProps } from '../../../types';
+import { data } from './constants';
+import ServiceCard from '../../components/ServiceCard';
 
 const AllServices = ({ navigation }: RootTabScreenProps<'AllServices'>) => (
   <View>
-    <Text>All services view </Text>
+    <Text>All serv icaes asd</Text>
+    <FlatList data={data} renderItem={ServiceCard} />
   </View>
 );
 
