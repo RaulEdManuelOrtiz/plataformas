@@ -9,19 +9,13 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import { RootStackParamList, RootTabParamList } from '../../types';
-import LinkingConfiguration from './LinkingConfiguration';
 import AllServices from '../screens/AllServices';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import { routesList } from '../routes/routesDictionary';
+import ServiceDetails from '../components/ServiceDetails';
+import CreateService from "../components/CreateService";
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
-
-const TabBarIcon = (props: {
-    name: React.ComponentProps<typeof FontAwesome>['name'];
-    color: string;
-}) => <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
-
-const TabBarIconComponent = ({ color }: { color: string }) => <TabBarIcon name="code" color={color} />;
 
 const BottomTabNavigator = () => {
   const colorScheme = useColorScheme();
@@ -33,18 +27,19 @@ const BottomTabNavigator = () => {
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
     >
-      <BottomTab.Screen
-        name="AllServices"
-        component={AllServices}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: TabBarIconComponent,
-        }}
-      />
+      {routesList.map((_) => (
+        <BottomTab.Screen
+          name={_.name}
+          key={_.key}
+          component={_.component}
+          options={{
+            title: _.title,
+            // @ts-ignore
+            // eslint-disable-next-line react/no-unstable-nested-components
+            tabBarIcon: (props) => <FontAwesome {...props} name={_.icon} />,
+          }}
+        />
+      ))}
     </BottomTab.Navigator>
   );
 };
@@ -57,13 +52,14 @@ const RootNavigator = () => (
     <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     <Stack.Group screenOptions={{ presentation: 'modal' }}>
       <Stack.Screen name="Modal" component={ModalScreen} />
+      <Stack.Screen name="ServiceDetails" component={ServiceDetails} options={{ title: 'Servicio' }} />
+      <Stack.Screen name="CreateService" component={CreateService} options={{ title: 'Crear servicio' }} />
     </Stack.Group>
   </Stack.Navigator>
 );
 
 const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => (
   <NavigationContainer
-    linking={LinkingConfiguration}
     theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
   >
     <RootNavigator />
