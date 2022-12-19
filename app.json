@@ -4,6 +4,7 @@
     "slug": "final-project",
     "version": "1.0.0",
     "orientation": "portrait",
+    "plugins": ["@react-native-google-signin/google-signin"],
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -22,13 +23,20 @@
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.raulmanuel.finalproject"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ddae590c-9061-4021-8e1e-13f5d065d25a"
+      }
     }
   }
 }

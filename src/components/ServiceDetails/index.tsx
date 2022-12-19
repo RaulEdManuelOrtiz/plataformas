@@ -4,6 +4,7 @@ import {
   Avatar, Card, Divider, IconButton, Text,
 } from 'react-native-paper';
 import testData from './constants';
+import Login from '../../screens/Login';
 
 const styles = StyleSheet.create({
   card: {
@@ -39,50 +40,51 @@ const Characteristic = ({ value }: {value: {label: string, value: string}}) => (
 
 const ServiceDetails = () => (
   <View>
-    <Card style={styles.card}>
-      <Card.Content>
-        <View style={styles.imageContainer}>
-          <Avatar.Image
-            source={{ uri: 'https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg' }}
-            size={150}
-          />
-          <Text variant="headlineLarge">Mecanico</Text>
-          <Text variant="titleMedium">978213468</Text>
-          <View style={styles.icons}>
-            <IconButton
-              icon="phone"
-              style={styles.icon}
-              mode="contained-tonal"
-              containerColor="transparent"
-              size={48}
-              onPress={() => {}}
-            />
-            <IconButton
-              icon="email"
-              style={styles.icon}
-              mode="contained-tonal"
-              containerColor="transparent"
-              size={48}
-              onPress={() => {}}
-            />
-            <IconButton
-              icon="message"
-              style={styles.icon}
-              mode="contained-tonal"
-              containerColor="transparent"
-              size={48}
-              onPress={() => {}}
-            />
-          </View>
-        </View>
-        <Divider />
-        <View style={{ marginTop: 16 }}>
-          {testData.map((_) => (
-            <Characteristic key={_.value} value={_} />
-          ))}
-        </View>
-      </Card.Content>
-    </Card>
+    <Login />
+    {/* <Card style={styles.card}> */}
+    {/*  <Card.Content> */}
+    {/*    <View style={styles.imageContainer}> */}
+    {/*      <Avatar.Image */}
+    {/*        source={{ uri: 'https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg' }} */}
+    {/*        size={150} */}
+    {/*      /> */}
+    {/*      <Text variant="headlineLarge">Mecanico</Text> */}
+    {/*      <Text variant="titleMedium">978213468</Text> */}
+    {/*      <View style={styles.icons}> */}
+    {/*        <IconButton */}
+    {/*          icon="phone" */}
+    {/*          style={styles.icon} */}
+    {/*          mode="contained-tonal" */}
+    {/*          containerColor="transparent" */}
+    {/*          size={48} */}
+    {/*          onPress={() => {}} */}
+    {/*        /> */}
+    {/*        <IconButton */}
+    {/*          icon="email" */}
+    {/*          style={styles.icon} */}
+    {/*          mode="contained-tonal" */}
+    {/*          containerColor="transparent" */}
+    {/*          size={48} */}
+    {/*          onPress={() => {}} */}
+    {/*        /> */}
+    {/*        <IconButton */}
+    {/*          icon="message" */}
+    {/*          style={styles.icon} */}
+    {/*          mode="contained-tonal" */}
+    {/*          containerColor="transparent" */}
+    {/*          size={48} */}
+    {/*          onPress={() => {}} */}
+    {/*        /> */}
+    {/*      </View> */}
+    {/*    </View> */}
+    {/*    <Divider /> */}
+    {/*    <View style={{ marginTop: 16 }}> */}
+    {/*      {testData.map((_) => ( */}
+    {/*        <Characteristic key={_.value} value={_} /> */}
+    {/*      ))} */}
+    {/*    </View> */}
+    {/*  </Card.Content> */}
+    {/* </Card> */}
   </View>
 );
 

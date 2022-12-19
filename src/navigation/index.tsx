@@ -5,7 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
-import Colors from '../constants/Colors';
+import { IconButton } from 'react-native-paper';
+import Colors, { primaryColor } from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import { RootStackParamList, RootTabParamList } from '../../types';
@@ -13,24 +14,29 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import { routesList } from '../routes/routesDictionary';
 import ServiceDetails from '../components/ServiceDetails';
 import CreateService from '../components/CreateService';
+import Login from '../screens/Login';
+import Header from '../components/Header';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
-const BottomTabNavigator = () => {
+const BottomTabNavigator = ({ user }: any) => {
   const colorScheme = useColorScheme();
 
   return (
     <BottomTab.Navigator
       initialRouteName="AllServices"
+      sceneContainerStyle={{ backgroundColor: 'white' }}
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        headerShown: false,
       }}
     >
       {routesList.map((_) => (
         <BottomTab.Screen
           name={_.name}
           key={_.key}
-          component={_.component}
+          //  eslint-disable-next-line
+          children={(props) => <_.component {...props} user={user} />}
           options={{
             title: _.title,
             // @ts-ignore
@@ -51,23 +57,41 @@ const BottomTabNavigator = () => {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const RootNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-    <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+const RootNavigator = ({ user }: any) => (
+  <Stack.Navigator initialRouteName={user ? 'Root' : 'Login'}>
+    {/* @ts-ignore */}
+    <Stack.Screen name="Login" options={{ headerShown: false, contentStyle: { backgroundColor: 'white' } }}>
+      {(props) => <Login {...props} user={user} />}
+    </Stack.Screen>
     <Stack.Group screenOptions={{ presentation: 'modal' }}>
       <Stack.Screen name="Modal" component={ModalScreen} />
-      <Stack.Screen name="ServiceDetails" component={ServiceDetails} options={{ title: 'Servicio' }} />
-      <Stack.Screen name="CreateService" component={CreateService} options={{ title: 'Crear servicio' }} />
+      <Stack.Screen name="ServiceDetails" component={ServiceDetails} options={{ title: 'Servicio', headerShown: false }} />
+      <Stack.Screen
+        name="CreateService"
+        component={CreateService}
+        options={{
+          contentStyle: { backgroundColor: 'white' },
+          header: ({ navigation }) => (
+            <Header
+              title="Solicitar servicio"
+              icon="chevron-left"
+              onPress={navigation.goBack}
+              iconSize={36}
+            />
+          ),
+        }}
+      />
     </Stack.Group>
+    <Stack.Screen name="Root" options={{ headerShown: false, contentStyle: { backgroundColor: 'white' } }}>
+      {(props) => <BottomTabNavigator {...props} user={user} />}
+    </Stack.Screen>
+    <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
   </Stack.Navigator>
 );
 
-const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => (
-  <NavigationContainer
-    theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-  >
-    <RootNavigator />
+const Navigation = ({ user }: any) => (
+  <NavigationContainer>
+    <RootNavigator user={user} />
   </NavigationContainer>
 );
 
